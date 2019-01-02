@@ -2,7 +2,7 @@
 
 sudo apt-get update -y && sudo apt-get upgrade -y
 
-sudo apt install -y libssl-dev libsdl-image1.2-dev libevent-dev libsdl1.2-dev
+sudo apt install -y redis=server libssl-dev libsdl-image1.2-dev libevent-dev libsdl1.2-dev
 
 sudo echo "@xset s off" >> /etc/xdg/lxsession/LXDE-pi/autostart
 sudo echo "@xset -dpms" >> /etc/xdg/lxsession/LXDE-pi/autostart
@@ -13,6 +13,9 @@ sudo echo "@xset s off" >> /home/pi/.config/lxsession/LXDE-pi/autostart
 sudo echo "@xset -dpms" >> /home/pi/.config/lxsession/LXDE-pi/autostart
 sudo echo "@xset s noblank" >> /home/pi/.config/lxsession/LXDE-pi/autostart
 sudo echo "@/home/pi/run.sh" >> /home/pi/.config/lxsession/LXDE-pi/autostart
+
+sudo echo "save 30 1" >> /etc/redis/redis.conf
+sudo echo "appendonly yes" >> /etc/redis/redis.conf
 
 sudo echo "hdmi_group=2" >> /boot/config.txt
 sudo echo "hdmi_mode=14" >> /boot/config.txt
