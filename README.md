@@ -1,2 +1,7 @@
 # wash
 binary files for self washing control panels
+
+IT IS NOT LEGAL TO SHARE OR DISTRIBUTE IT WITHOUT AUTHORS PERMISSION
+NO WARRANTIES FOR THIS SOFTWARE
+
+
