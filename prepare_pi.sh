@@ -26,7 +26,7 @@ echo "./update.sh &" >> /home/pi/run.sh
 echo "sleep 1" >> /home/pi/run.sh
 echo "./firmware.exe_" >> /home/pi/run.sh
 
-cd /home/pi/wash
+cd /home/pi
 read -p "Enter Card Code : " card_code
 echo "$card_code" >> id.txt
 chmod 777 /home/pi/run.sh
