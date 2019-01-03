@@ -30,5 +30,3 @@ cd /home/pi/wash
 read -p "Enter Card Code : " card_code
 echo "$card_code" >> id.txt
 chmod 777 /home/pi/run.sh
-/home/pi/run.sh
-
