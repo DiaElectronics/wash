@@ -45,7 +45,7 @@
       {
         "id":"recommend_arrow",
         "type":"image",
-        "position": "223;445",
+        "position": "209;445",
         "size":"30;17",
         "src":"pic/3/arrow.png",
         "visible":"true"
@@ -53,7 +53,7 @@
       {
         "id":"recommend_arrow2",
         "type":"image",
-        "position": "346;445",
+        "position": "344;445",
         "size":"30;17",
         "src":"pic/3/arrow.png",
         "visible":"true"
