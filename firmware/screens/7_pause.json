@@ -71,7 +71,7 @@
       {
         "id":"recommend_arrow",
         "type":"image",
-        "position": "472;445",
+        "position": "479;445",
         "size":"30;17",
         "src":"pic/3/arrow.png",
         "visible":"true"
