@@ -31,8 +31,8 @@
       "src": "screens/7_pause.json"
     },
     {
-      "id": "osmosian",
-      "src": "screens/8_osmosian.json"
+      "id": "vacuum",
+      "src": "screens/8_vacuum.json"
     },
     {
       "id": "wax",
@@ -64,8 +64,8 @@
       "src": "programs/active_soap.json"
     },
     {
-      "id": "osmosian",
-      "src": "programs/osmosian.json"
+      "id": "vacuum",
+      "src": "programs/vacuum.json"
     },
     {
       "id": "wax",

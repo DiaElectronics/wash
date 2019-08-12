@@ -14,7 +14,7 @@ setup = function()
     price_water = 20;
     price_soap = 25;
     price_active_soap = 36;
-    price_osmosian = 20;
+    price_vacuum = 10;
     price_wax = 20;
     
     mode_welcome = 0
@@ -24,7 +24,7 @@ setup = function()
     mode_soap = 40
     mode_active_soap = 50
     mode_pause = 60
-    mode_osmosian = 70
+    mode_vacuum = 70
     mode_wax = 80
     mode_thanks = 90
     
@@ -51,7 +51,7 @@ run_mode = function(new_mode)
     
     if new_mode == mode_active_soap then return active_soap_mode() end
     if new_mode == mode_pause then return pause_mode() end
-    if new_mode == mode_osmosian then return osmosian_mode() end
+    if new_mode == mode_vacuum then return vacuum_mode() end
     if new_mode == mode_wax then return wax_mode() end
     if new_mode == mode_thanks then return thanks_mode() end
 end
@@ -69,7 +69,7 @@ ask_for_money_mode = function()
     run_stop()
     turn_light(0, animation.idle)
     update_balance();
-    if balance > 1.0 then
+    if balance > 0.9 then
         return mode_start
     end
     return mode_ask_for_money
@@ -142,22 +142,22 @@ pause_mode = function()
     return mode_pause
 end
 
-osmosian_mode = function()
-    show_osmosian(balance)
-    run_osmosian()
-    turn_light(4, animation.one_button)
-    charge_balance(price_osmosian)
+vacuum_mode = function()
+    show_vacuum(balance)
+    run_vacuum()
+    turn_light(5, animation.one_button)
+    charge_balance(price_vacuum)
     if balance <= 0.01 then return mode_thanks end
     update_balance()
     suggested_mode = get_mode_by_pressed_key()
     if suggested_mode >=0 then return suggested_mode end
-    return mode_osmosian
+    return mode_vacuum
 end
 
 wax_mode = function()
     show_wax(balance)
     run_wax()
-    turn_light(5, animation.one_button)
+    turn_light(4, animation.one_button)
     charge_balance(price_wax)
     if balance <= 0.01 then return mode_thanks end
     update_balance()
@@ -225,10 +225,10 @@ show_pause = function(balance_rur, balance_sec)
     pause:Display()
 end
 
-show_osmosian = function(balance_rur)
+show_vacuum = function(balance_rur)
     balance_int = math.ceil(balance_rur)
-    osmosian:Set("balance.value", balance_int)
-    osmosian:Display()
+    vacuum:Set("balance.value", balance_int)
+    vacuum:Display()
 end
 
 show_wax = function(balance_rur)
@@ -246,8 +246,8 @@ get_mode_by_pressed_key = function()
     if pressed_key == 1 then return mode_water end
     if pressed_key == 2 then return mode_soap end
     if pressed_key == 3 then return mode_active_soap end
-    if pressed_key == 4 then return mode_osmosian end
-    if pressed_key == 5 then return mode_wax end
+    if pressed_key == 4 then return mode_wax end
+    if pressed_key == 5 then return mode_vacuum end
     if pressed_key == 6 then return mode_pause end
     return -1
 end
@@ -280,8 +280,8 @@ run_active_soap = function()
     run_program(program.active_soap)
 end
 
-run_osmosian = function()
-    run_program(program.osmosian)
+run_vacuum = function()
+    run_program(program.vacuum)
 end
 
 run_wax = function()
