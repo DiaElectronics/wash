@@ -9,11 +9,6 @@ sudo echo "@xset -dpms" >> /etc/xdg/lxsession/LXDE-pi/autostart
 sudo echo "@xset s noblank" >> /etc/xdg/lxsession/LXDE-pi/autostart
 sudo echo "@/home/pi/run.sh" >> /etc/xdg/lxsession/LXDE-pi/autostart
 
-sudo echo "@xset s off" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-sudo echo "@xset -dpms" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-sudo echo "@xset s noblank" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-sudo echo "@/home/pi/run.sh" >> /home/pi/.config/lxsession/LXDE-pi/autostart
-
 sudo echo "save 30 1" >> /etc/redis/redis.conf
 sudo echo "appendonly yes" >> /etc/redis/redis.conf
 
