@@ -2,7 +2,7 @@
 
 setup = function()
     -- global variables
-    balance = 7.0
+    balance = 2.0
     balance_seconds = 0
         
     -- constants
