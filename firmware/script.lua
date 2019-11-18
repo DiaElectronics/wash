@@ -2,12 +2,14 @@
 
 setup = function()
     -- global variables
-    balance = 2.0
+    balance = 3.0
     balance_seconds = 0
-        
+    kasse_balance = 0.0
+    post_position = 1        
+
     -- constants
     welcome_mode_seconds = 3
-    thanks_mode_seconds = 20
+    thanks_mode_seconds = 120
     free_pause_seconds = 120
     
     price_pause = 18;
@@ -16,7 +18,7 @@ setup = function()
     price_active_soap = 36;
     price_osmosian = 18;
     price_wax = 18;
-    
+
     mode_welcome = 0
     mode_ask_for_money = 10
     mode_start = 20
@@ -29,7 +31,7 @@ setup = function()
     mode_thanks = 90
     
     currentMode = mode_welcome
-    version = "0.1"
+    version = "0.2"
 
     printMessage("Kanatnikoff Wash v." .. version)
     return 0
@@ -53,7 +55,7 @@ run_mode = function(new_mode)
     if new_mode == mode_pause then return pause_mode() end
     if new_mode == mode_osmosian then return osmosian_mode() end
     if new_mode == mode_wax then return wax_mode() end
-    if new_mode == mode_thanks then return thanks_mode() end
+    if new_mode == mode_thanks then return thanks_mode() end    
 end
 
 welcome_mode = function()
@@ -168,18 +170,26 @@ end
 
 thanks_mode = function()
     balance = 0
-    show_thanks()
-    turn_light(1, animation.idle)
+    show_thanks(thanks_mode_seconds)
+    turn_light(1, animation.one_button)
     run_program(program.pause)
     waiting_loops = thanks_mode_seconds * 10;
     
     while(waiting_loops>0)
     do
+        show_thanks(waiting_loops/10)
+	    pressed_key = get_key()
+        if pressed_key > 0 and pressed_key < 7 then
+            waiting_loops = 0
+        end
         update_balance()
         if balance > 0.99 then return mode_start end
         smart_delay(100)
         waiting_loops = waiting_loops - 1
     end
+
+    send_receipt(post_position, 0, kasse_balance)
+    kasse_balance = 0
 
     return mode_ask_for_money
 end
@@ -237,7 +247,9 @@ show_wax = function(balance_rur)
     wax:Display()
 end
 
-show_thanks =  function() 
+show_thanks =  function(seconds_float) 
+    seconds_int = math.ceil(seconds_float)
+    thanks:Set("delay_seconds.value", seconds_int)
     thanks:Display()
 end
 
@@ -262,6 +274,10 @@ end
 
 turn_light = function(rel_num, animation_code)
     hardware:TurnLight(rel_num, animation_code)
+end
+
+send_receipt = function(post_pos, is_card, amount)
+    hardware:SendReceipt(post_pos, is_card, amount)
 end
 
 run_pause = function()
@@ -297,8 +313,13 @@ run_program = function(program_num)
 end
 
 update_balance = function()
-    balance = balance + hardware:GetCoins()
-    balance = balance + hardware:GetBanknotes()
+    new_coins = hardware:GetCoins()
+    new_banknotes = hardware:GetBanknotes()
+    
+    kasse_balance = kasse_balance + new_coins
+    kasse_balance = kasse_balance + new_banknotes
+    balance = balance + new_coins
+    balance = balance + new_banknotes
 end
 
 charge_balance = function(price)
