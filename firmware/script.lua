@@ -229,7 +229,7 @@ show_welcome = function()
 end
 
 show_ask_for_money = function()
-    ask_for_money:Display()
+    ask_for_money_no_price:Display()
 end
 
 show_start = function(balance_rur)
