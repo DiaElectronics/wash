@@ -9,7 +9,11 @@
     {
       "id": "ask_for_money",
       "src": "screens/2_ask_for_money.json"
-    },  
+    },
+    {
+      "id": "ask_for_money_no_price",
+      "src": "screens/2_ask_for_money_no_price.json"
+    },
     {
       "id": "start",
       "src": "screens/3_start.json"
