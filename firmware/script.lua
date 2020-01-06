@@ -2,7 +2,7 @@
 
 setup = function()
     -- global variables
-    balance = 3.0
+    balance = 0.0
     balance_seconds = 0
     kasse_balance = 0.0
     post_position = 1        
@@ -12,13 +12,22 @@ setup = function()
     thanks_mode_seconds = 120
     free_pause_seconds = 120
     
-    price_pause = 18;
-    price_water = 18;
-    price_soap = 18;
-    price_active_soap = 36;
-    price_osmosian = 18;
-    price_wax = 18;
+    price_pause = 0
+    price_water = 0
+    price_soap = 0
+    price_active_soap = 0
+    price_osmosian = 0
+    price_wax = 0
 
+    init_prices()
+    ask_for_money:Set("water.value", price_water)
+    ask_for_money:Set("soap.value", price_soap)
+    ask_for_money:Set("active_soap.value", price_active_soap)
+    ask_for_money:Set("osmosian.value", price_osmosian)
+    ask_for_money:Set("wax.value", price_wax)
+    ask_for_money:Set("pause.value", price_pause)
+    ask_for_money:Set("pause_sec.value", free_pause_seconds)
+    
     mode_welcome = 0
     mode_ask_for_money = 10
     mode_start = 20
@@ -31,10 +40,30 @@ setup = function()
     mode_thanks = 90
     
     currentMode = mode_welcome
-    version = "0.2"
+    version = "0.3"
 
     printMessage("Kanatnikoff Wash v." .. version)
     return 0
+end
+
+init_prices = function()
+    price_pause = get_price("price6")
+    if price_pause == 0 then price_pause = 18 end
+
+    price_water = get_price("price1")
+    if price_water == 0 then price_water = 18 end
+
+    price_soap = get_price("price2")
+    if price_soap == 0 then price_soap = 18 end
+
+    price_active_soap = get_price("price3")
+    if price_active_soap == 0 then price_active_soap = 36 end
+
+    price_osmosian = get_price("price4")
+    if price_osmosian == 0 then price_osmosian = 18 end
+
+    price_wax = get_price("price5")
+    if price_wax == 0 then price_wax = 18 end
 end
 
 -- loop is being executed
@@ -270,6 +299,10 @@ end
 
 smart_delay = function(ms)
     hardware:SmartDelay(ms)
+end
+
+get_price = function(key)
+    return registry:ValueInt(key)
 end
 
 turn_light = function(rel_num, animation_code)
